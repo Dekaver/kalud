@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         DeviceOrientation.portraitDown,
       ]);
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Kalkulator undercarriage',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
