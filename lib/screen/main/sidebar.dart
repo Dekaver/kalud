@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kalud/screen/about/about.dart';
+import 'package:kalud/screen/kal/pc200-7/body.dart';
+import 'package:kalud/screen/main/main.dart';
 
 class Sidebar extends StatelessWidget {
   @override
@@ -27,6 +29,37 @@ class Sidebar extends StatelessWidget {
                             fontSize: 14.0,
                             fontWeight: FontWeight.w500))),
               ])),
+          ListTile(
+            title: Row(
+              children: <Widget>[
+                Icon(Icons.info_outline_rounded),
+                Padding(
+                    padding: EdgeInsets.only(left: 8.0), child: Text('Home'))
+              ],
+            ),
+            onTap: () {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(
+                    builder: (context) => HomePage()
+                    ));
+            },
+          ),
+          Divider(),
+          ListTile(
+            title: Row(
+              children: <Widget>[
+                Icon(Icons.info_outline_rounded),
+                Padding(
+                    padding: EdgeInsets.only(left: 8.0), child: Text('PC200-7'))
+              ],
+            ),
+            onTap: () {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(
+                    builder: (context) => Body()
+                    ));
+            },
+          ),
           Divider(),
           ListTile(
             title: Row(
@@ -37,7 +70,7 @@ class Sidebar extends StatelessWidget {
               ],
             ),
             onTap: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context, MaterialPageRoute(
                     builder: (context) => AboutPage()
                     ));

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'body.dart';
+import 'package:kalud/screen/welcome/welcome.dart';
 import 'sidebar.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +14,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Kalkukator Undercarriage'),
       ),
-      body: Body(),
+      body: WelcomeScreen(),
       drawer: Sidebar(),
     );
   }

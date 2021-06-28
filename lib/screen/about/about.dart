@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kalud/screen/main/sidebar.dart';
 
 class AboutPage extends StatefulWidget {
   @override
@@ -71,6 +72,7 @@ class _AboutPageState extends State<AboutPage> {
           
         ],
       ),
+      drawer: Sidebar(),
     );
   }
 }
