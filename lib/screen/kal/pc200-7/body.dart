@@ -10,12 +10,12 @@ import 'linkheight/linkheight.dart';
 import 'linkpitch/linkpitch.dart';
 import 'trackroller/trackroller.dart';
 
-class Body extends StatefulWidget {
+class BodyPc2007 extends StatefulWidget {
   @override
-  _BodyState createState() => _BodyState();
+  _BodyPc2007State createState() => _BodyPc2007State();
 }
 
-class _BodyState extends State<Body> {
+class _BodyPc2007State extends State<BodyPc2007> {
   @override
   Widget build(BuildContext context) {
 
