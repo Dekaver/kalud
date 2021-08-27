@@ -167,6 +167,27 @@ class _TrackRollerPageState extends State<TrackRollerPage> {
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 5),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  width: size.width * 0.47,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  child: ElevatedButton(
+                    child: Text("Reset"),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.redAccent),
+                    ),
+                    onPressed: () {
+                      operationHourText.text = "0";
+                      pengukuranText.text = "0";
+                      wearRateText.text = "0";
+                      hourLeftText.text = "0";
+                    },
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   width: size.width * 0.97,
                   decoration: BoxDecoration(
                     color: Colors.white,

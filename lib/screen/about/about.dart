@@ -57,6 +57,19 @@ class _AboutPageState extends State<AboutPage> {
             onTap: () {},
           ),
           ListTile(
+            leading: Icon(Icons.person_outline_rounded),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.only(left: 8.0), child: Text('Programmer')),
+                Padding(
+                    padding: EdgeInsets.only(left: 8.0), child: Text('Alwiwahyudi8@gmail.com', style: TextStyle(fontSize: 10, color: Colors.black87),))
+              ],
+            ),
+            onTap: () {},
+          ),
+          ListTile(
             leading: Icon(Icons.work_outline_outlined),
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

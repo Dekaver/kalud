@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kalud/screen/about/about.dart';
+import 'package:kalud/screen/kal/index.dart';
 import 'package:kalud/screen/kal/pc200-7/body.dart';
 import 'package:kalud/screen/main/main.dart';
 
@@ -48,7 +49,7 @@ class Sidebar extends StatelessWidget {
           ListTile(
             title: Row(
               children: <Widget>[
-                Icon(Icons.info_outline_rounded),
+                Icon(Icons.calculate),
                 Padding(
                     padding: EdgeInsets.only(left: 8.0), child: Text('PC200-7'))
               ],
@@ -57,6 +58,21 @@ class Sidebar extends StatelessWidget {
               Navigator.pushReplacement(
                   context, MaterialPageRoute(
                     builder: (context) => BodyPc2007()
+                    ));
+            },
+          ),
+          ListTile(
+            title: Row(
+              children: <Widget>[
+                Icon(Icons.calculate),
+                Padding(
+                    padding: EdgeInsets.only(left: 8.0), child: Text('Hourleft & Wear Rate'))
+              ],
+            ),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(
+                    builder: (context) => IndexPage()
                     ));
             },
           ),

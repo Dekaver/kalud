@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kalud/src/funct/kalkulator.dart';
 
-class BushingPage extends StatefulWidget {
+class IndexPage extends StatefulWidget {
   @override
-  _BushingPageState createState() => _BushingPageState();
+  _IndexPageState createState() => _IndexPageState();
 }
 
-class _BushingPageState extends State<BushingPage> {
+class _IndexPageState extends State<IndexPage> {
   final TextEditingController pengukuranText = TextEditingController();
   final TextEditingController operationHourText = TextEditingController();
-  final TextEditingController standarSizeText =
-      TextEditingController(text: '59.3');
-  final TextEditingController repairLimitText =
-      TextEditingController(text: '54.3');
-  final TextEditingController faktorText = TextEditingController(text: '2.0');
+  final TextEditingController standarSizeText = TextEditingController();
+  final TextEditingController repairLimitText = TextEditingController();
+  final TextEditingController faktorText = TextEditingController();
   final TextEditingController hourLeftText = TextEditingController(text: '0');
   final TextEditingController wearRateText = TextEditingController(text: '0');
 
@@ -24,7 +22,8 @@ class _BushingPageState extends State<BushingPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bushing Outside Diameter'),
+        title: Text('Hourleft & Wear Rate'),
+
       ),
       body: Container(
         padding: EdgeInsets.all(5),
@@ -53,9 +52,9 @@ class _BushingPageState extends State<BushingPage> {
                         return oldValue;
                       }),
                     ],
-                    controller: pengukuranText,
                     keyboardType: TextInputType.numberWithOptions(
                         decimal: true, signed: false),
+                    controller: pengukuranText,
                     decoration: InputDecoration(
                       icon: Text("Pengukuran (mm)"),
                       hintTextDirection: TextDirection.rtl,
@@ -104,12 +103,25 @@ class _BushingPageState extends State<BushingPage> {
                     borderRadius: BorderRadius.circular(2),
                   ),
                   child: TextField(
-                    readOnly: true,
                     textDirection: TextDirection.rtl,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                      TextInputFormatter.withFunction((oldValue, newValue) {
+                        try {
+                          final text = newValue.text;
+                          if (text.isNotEmpty) double.parse(text);
+                          return newValue;
+                        } catch (e) {}
+                        return oldValue;
+                      }),
+                    ],
+                    keyboardType: TextInputType.numberWithOptions(
+                        decimal: true, signed: false),
                     controller: standarSizeText,
                     decoration: InputDecoration(
                       icon: Text("Standar Size (mm)"),
                       hintTextDirection: TextDirection.rtl,
+                      hintText: "0",
                       border: InputBorder.none,
                     ),
                   ),
@@ -127,12 +139,25 @@ class _BushingPageState extends State<BushingPage> {
                     borderRadius: BorderRadius.circular(2),
                   ),
                   child: TextField(
-                    readOnly: true,
                     textDirection: TextDirection.rtl,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                      TextInputFormatter.withFunction((oldValue, newValue) {
+                        try {
+                          final text = newValue.text;
+                          if (text.isNotEmpty) double.parse(text);
+                          return newValue;
+                        } catch (e) {}
+                        return oldValue;
+                      }),
+                    ],
+                    keyboardType: TextInputType.numberWithOptions(
+                        decimal: true, signed: false),
                     controller: repairLimitText,
                     decoration: InputDecoration(
                       icon: Text("Repair Limit (mm)"),
                       hintTextDirection: TextDirection.rtl,
+                      hintText: "0",
                       border: InputBorder.none,
                     ),
                   ),
@@ -150,12 +175,25 @@ class _BushingPageState extends State<BushingPage> {
                     borderRadius: BorderRadius.circular(2),
                   ),
                   child: TextField(
-                    readOnly: true,
                     textDirection: TextDirection.rtl,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                      TextInputFormatter.withFunction((oldValue, newValue) {
+                        try {
+                          final text = newValue.text;
+                          if (text.isNotEmpty) double.parse(text);
+                          return newValue;
+                        } catch (e) {}
+                        return oldValue;
+                      }),
+                    ],
+                    keyboardType: TextInputType.numberWithOptions(
+                        decimal: true, signed: false),
                     controller: faktorText,
                     decoration: InputDecoration(
                       icon: Text("Faktor (k)"),
                       hintTextDirection: TextDirection.rtl,
+                      hintText: "0",
                       border: InputBorder.none,
                     ),
                   ),
@@ -180,6 +218,9 @@ class _BushingPageState extends State<BushingPage> {
                     onPressed: () {
                       operationHourText.text = "0";
                       pengukuranText.text = "0";
+                      repairLimitText.text = "0";
+                      faktorText.text = "0";
+                      standarSizeText.text = "0";
                       wearRateText.text = "0";
                       hourLeftText.text = "0";
                     },
@@ -188,7 +229,7 @@ class _BushingPageState extends State<BushingPage> {
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 5),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  width: size.width * 0.97,
+                  width: size.width * 0.47,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(2),
@@ -203,17 +244,21 @@ class _BushingPageState extends State<BushingPage> {
                       double pengukuranvalue = pengukuranText.text != ''
                           ? double.parse(pengukuranText.text)
                           : 0.0;
-                      var wr = wearRate(
-                          pengukuranvalue,
-                          double.parse(repairLimitText.text),
-                          double.parse(standarSizeText.text));
-                      var ka = konstantaA(wr, operationHourvalue,
-                          double.parse(faktorText.text));
-                      var hr =
-                          hoursLeft(100, ka, double.parse(faktorText.text));
+                      double repairLimitvalue = repairLimitText.text != ''
+                          ? double.parse(repairLimitText.text)
+                          : 0.0;
+                      double standarSizevalue = standarSizeText.text != ''
+                          ? double.parse(standarSizeText.text)
+                          : 0.0;
+                      double faktorvalue = faktorText.text != ''
+                          ? double.parse(faktorText.text)
+                          : 0.0;
+                      print(operationHourvalue.toString() + pengukuranvalue.toString() + repairLimitvalue.toString() + standarSizevalue.toString() + faktorvalue.toString());
+                      var wr = wearRate(pengukuranvalue, repairLimitvalue, standarSizevalue);
+                      var ka = konstantaA(wr, operationHourvalue, faktorvalue);
+                      var hr = hoursLeft(100, ka, faktorvalue);
                       wearRateText.text = wr.toString();
-                      hourLeftText.text =
-                          (hr - operationHourvalue.toInt()).toString();
+                      hourLeftText.text = (hr - operationHourvalue.toInt()).toString();
                     },
                   ),
                 ),
@@ -236,6 +281,7 @@ class _BushingPageState extends State<BushingPage> {
                     decoration: InputDecoration(
                       icon: Text("Wear Rate (%)"),
                       hintTextDirection: TextDirection.rtl,
+                      hintText: "0",
                       border: InputBorder.none,
                     ),
                   ),
@@ -258,6 +304,7 @@ class _BushingPageState extends State<BushingPage> {
                     controller: hourLeftText,
                     decoration: InputDecoration(
                       icon: Text("Hours Left (Jam)"),
+                      hintText: "0",
                       hintTextDirection: TextDirection.rtl,
                       border: InputBorder.none,
                     ),

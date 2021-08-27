@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kalud/screen/kal/index.dart';
 import 'package:kalud/screen/kal/pc200-7/body.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -29,7 +30,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Icon(
-                        Icons.build_sharp,
+                        Icons.calculate,
                         color: Colors.grey,
                         size: 40,
                       ),
@@ -46,6 +47,40 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => BodyPc2007()));
+              },
+            ),
+          ),
+          Container(
+            height: 80,
+            margin: EdgeInsets.all(5),
+            alignment: Alignment(0, 0),
+            child:
+              ElevatedButton(
+              child: Container(
+                height: 60,
+                margin: EdgeInsets.all(5),
+                alignment: Alignment(0, 0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Icon(
+                        Icons.calculate,
+                        color: Colors.grey,
+                        size: 40,
+                      ),
+                      Text(
+                        'Hourleft & Wear Rate',
+                        style: TextStyle(color: Colors.red),
+                        textAlign: TextAlign.center,
+                      )
+                    ]),
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.blue.shade400),
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => IndexPage()));
               },
             ),
           ),
